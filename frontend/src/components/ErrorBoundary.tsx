@@ -105,10 +105,8 @@ const DefaultErrorFallback: React.FC<ErrorFallbackProps> = ({
   );
 };
 
-// Hook for functional components to reset error boundary
 export const useErrorHandler = () => {
   return (error: Error, errorInfo?: React.ErrorInfo) => {
     console.error("Uncaught error:", error, errorInfo);
-    // In a real app, you might want to send this to an error reporting service
   };
 };
