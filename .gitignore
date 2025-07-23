@@ -1,0 +1,16 @@
+# Python
+backend/venv/
+__pycache__/
+*.pyc
+
+# Environment files
+backend/.env
+
+# Node.js (frontend)
+frontend/node_modules/
+frontend/.env
+
+# OS-specific
+.DS_Store
+data/raw/
+*.csv
