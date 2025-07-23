@@ -17,7 +17,6 @@ class AnalyticsService:
         try:
             logger.info(f"📊 Generating analytics for tenant: {tenant_id}")
             
-            # Get all trips for this tenant
             trips_cursor = self.db.trips.find({"tenant_id": tenant_id})
             trips = await trips_cursor.to_list(None)
             
@@ -30,13 +29,9 @@ class AnalyticsService:
                     total_trips=0
                 )
             
-            # Calculate top stations by trip count
             top_stations = await self._calculate_top_stations(trips, tenant_id)
-            
-            # Calculate average trip duration (in minutes)
             avg_duration = self._calculate_avg_duration(trips)
             
-            # Calculate peak hour
             peak_hour = self._calculate_peak_hour(trips)
             
             return Analytics(
@@ -58,18 +53,15 @@ class AnalyticsService:
     async def _calculate_top_stations(self, trips: List[Dict], tenant_id: str) -> List[TopStation]:
         """Calculate top 5 stations by trip starts"""
         try:
-            # Count trips by start station
             station_counts = Counter()
             for trip in trips:
                 if "start_station_id" in trip and trip["start_station_id"]:
                     station_counts[trip["start_station_id"]] += 1
             
-            # Get top 5 stations
             top_station_ids = station_counts.most_common(5)
             top_stations = []
             
             for station_id, count in top_station_ids:
-                # Get station name from stations collection
                 station_doc = await self.db.stations.find_one({
                     "station_id": station_id,
                     "tenant_id": tenant_id
@@ -95,7 +87,6 @@ class AnalyticsService:
             durations = []
             for trip in trips:
                 if "duration_seconds" in trip and trip["duration_seconds"]:
-                    # Convert to minutes and filter out unrealistic values
                     duration_minutes = trip["duration_seconds"] / 60
                     if 1 <= duration_minutes <= 1440:  # 1 minute to 24 hours
                         durations.append(duration_minutes)
@@ -126,5 +117,4 @@ class AnalyticsService:
             logger.error(f"Error calculating peak hour: {e}")
             return 0
 
-# Service instance
 analytics_service = AnalyticsService()

@@ -1,24 +1,21 @@
 import L from "leaflet";
 import type { Station } from "../types";
 
-// Map center coordinates for different tenants
 export const getMapCenter = (tenant: string): [number, number] => {
   switch (tenant) {
     case "manhattan":
-      return [40.758, -73.9855]; // Manhattan center
+      return [40.758, -73.9855];
     case "brooklyn":
-      return [40.6782, -73.9442]; // Brooklyn center
+      return [40.6782, -73.9442];
     default:
-      return [40.7128, -73.936]; // NYC center
+      return [40.7128, -73.936];
   }
 };
 
-// Get marker color based on station availability
 export const getMarkerColor = (station: Station): string => {
   return station.status_color;
 };
 
-// Create custom marker icon
 export const createCustomIcon = (color: string) => {
   const iconColors = {
     green: "#10b981",

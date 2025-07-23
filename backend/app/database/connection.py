@@ -9,7 +9,6 @@ class Database:
     client: Optional[AsyncIOMotorClient] = None
     database: Optional[AsyncIOMotorDatabase] = None
 
-# Global database instance
 database = Database()
 
 async def connect_to_mongo():
@@ -18,15 +17,13 @@ async def connect_to_mongo():
         database.client = AsyncIOMotorClient(settings.mongodb_url)
         database.database = database.client[settings.database_name]
         
-        # Test connection
         await database.client.admin.command('ping')
         logger.info("✅ Connected to MongoDB")
         
-        # Create indexes for performance
         await create_indexes()
         
     except Exception as e:
-        logger.error(f"❌ Failed to connect to MongoDB: {e}")
+        logger.error(f"Failed to connect to MongoDB: {e}")
         raise
 
 async def close_mongo_connection():
@@ -38,7 +35,6 @@ async def close_mongo_connection():
 async def create_indexes():
     """Create database indexes for better performance"""
     try:
-        # Function to safely create index
         async def safe_create_index(collection, index_spec, **kwargs):
             try:
                 await collection.create_index(index_spec, **kwargs)
@@ -48,7 +44,6 @@ async def create_indexes():
                 else:
                     logger.warning(f"Failed to create index {index_spec}: {e}")
         
-        # Stations indexes
         await safe_create_index(
             database.database.stations, 
             [("station_id", 1)], 
@@ -59,7 +54,6 @@ async def create_indexes():
             [("tenant_id", 1)]
         )
         
-        # Alerts indexes
         await safe_create_index(
             database.database.alerts, 
             [("tenant_id", 1), ("timestamp", -1)]
@@ -69,7 +63,6 @@ async def create_indexes():
             [("station_id", 1), ("timestamp", -1)]
         )
         
-        # Trips indexes
         await safe_create_index(
             database.database.trips, 
             [("tenant_id", 1)]
@@ -86,7 +79,7 @@ async def create_indexes():
         logger.info("✅ Database indexes verified/created")
         
     except Exception as e:
-        logger.error(f"❌ Failed to create indexes: {e}")
+        logger.error(f"Failed to create indexes: {e}")
 
 def get_database():
     """Get database instance"""

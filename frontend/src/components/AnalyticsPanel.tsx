@@ -153,7 +153,6 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
       </div>
 
       <div className="p-4 space-y-6">
-        {/* Key Metrics */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <MetricCard
             icon={<Users className="w-5 h-5" />}
@@ -180,7 +179,6 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
           />
         </div>
 
-        {/* Top Stations Chart */}
         <TopStationsChart analytics={analytics} />
       </div>
     </div>

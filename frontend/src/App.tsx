@@ -66,16 +66,13 @@ const AppContent: React.FC = () => {
               )}
             </div>
 
-            {/* Sidebar */}
             <div className="space-y-6">
-              {/* Alerts Feed */}
               {loading && !alerts.length ? (
                 <AlertsLoadingSkeleton />
               ) : (
                 <AlertsFeed alerts={alerts} />
               )}
 
-              {/* Analytics Panel */}
               {loading && !analytics ? (
                 <AnalyticsLoadingSkeleton />
               ) : (

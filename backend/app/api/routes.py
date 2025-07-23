@@ -29,7 +29,6 @@ async def get_tenant_stations(tenant_id: str):
         for station in stations:
             status = station["current_status"]
             
-            # Determine status color based on availability
             bikes_available = status["bikes_available"]
             docks_available = status["docks_available"]
             
@@ -67,7 +66,6 @@ async def get_tenant_alerts(
     try:
         db = get_database()
         
-        # Get recent alerts, sorted by timestamp descending
         alerts_cursor = db.alerts.find(
             {"tenant_id": tenant_id, "resolved": False}
         ).sort("timestamp", -1).limit(limit)

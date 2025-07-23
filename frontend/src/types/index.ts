@@ -1,4 +1,3 @@
-// Backend response types (matching your Pydantic models)
 export interface StationResponse {
   station_id: string;
   name: string;
@@ -11,7 +10,6 @@ export interface StationResponse {
   status_color: "green" | "yellow" | "red";
 }
 
-// Frontend types (transformed from backend responses)
 export interface StationStatus {
   bikes_available: number;
   docks_available: number;
