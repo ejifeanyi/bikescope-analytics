@@ -12,7 +12,7 @@ router = APIRouter()
 @router.get("/health")
 async def health_check():
     """Health check endpoint"""
-    return {"status": "healthy", "timestamp": datetime.utcnow()}
+    return {"status": "healthy", "timestamp": datetime.now()}
 
 @router.get("/stations/{tenant_id}", response_model=List[StationResponse])
 async def get_tenant_stations(tenant_id: str):

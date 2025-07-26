@@ -14,3 +14,6 @@ frontend/.env
 .DS_Store
 data/raw/
 *.csv
+seed_data_alerts.json
+seed_data_stations.json
+seed_data_trips.json

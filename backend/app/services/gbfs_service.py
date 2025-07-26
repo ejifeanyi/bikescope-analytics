@@ -49,7 +49,7 @@ class GBFSService:
 
     async def update_stations_data(self) -> bool:
         """Fetch and update station data from GBFS"""
-        logger.info("🔄 Updating station data from GBFS...")
+        logger.info("Updating station data from GBFS...")
         
         try:
             if self.db is None:
@@ -113,7 +113,7 @@ class GBFSService:
                 alerts = await self.check_station_alerts(station_doc)
                 new_alerts.extend(alerts)
             
-            logger.info(f"✅ Updated {updated_count} stations")
+            logger.info(f"Updated {updated_count} stations")
             
             if new_alerts:
                 await self.db.alerts.insert_many(new_alerts)
@@ -163,7 +163,7 @@ class GBFSService:
     async def start_background_updates(self):
         """Start background task for regular updates"""
         self._running = True
-        logger.info("🔄 Starting background GBFS updates (every 60 seconds)")
+        logger.info("Starting background GBFS updates (every 60 seconds)")
         
         while self._running:
             try:
@@ -179,6 +179,6 @@ class GBFSService:
     def stop_background_updates(self):
         """Stop background updates"""
         self._running = False
-        logger.info("🛑 Stopping background updates")
+        logger.info("Stopping background updates")
 
 gbfs_service = GBFSService()

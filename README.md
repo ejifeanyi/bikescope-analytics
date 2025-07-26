@@ -50,7 +50,7 @@ A multi-tenant SaaS platform for bike share operators to monitor real-time stati
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/ejifeanyi/bikescope-analytics.git
 cd bikescope-analytics
 ```
 
@@ -344,8 +344,7 @@ bikescope-analytics/
 │   │   ├── models/           # Pydantic schemas
 │   │   ├── services/         # Business logic
 │   │   │   ├── gbfs_service.py    # GBFS data fetching
-│   │   │   ├── analytics_service.py # Analytics computation
-│   │   │   └── alert_service.py   # Alert generation
+│   │   │   └── analytics_service.py   # Analytics computation
 │   │   └── main.py           # FastAPI app
 │   ├── requirements.txt
 │   └── .env
